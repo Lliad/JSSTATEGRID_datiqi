@@ -4,7 +4,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ChromeOptions
 from selenium.webdriver.chrome.service import Service
-import requests
 import pandas as pd
 import numpy as np
 from typing import Optional
