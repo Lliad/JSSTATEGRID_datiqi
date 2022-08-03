@@ -118,7 +118,6 @@ def anwser_machine(stem, anwser):
                 print(option)
                 driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[2]/div/div[3]/div[2]/div[' + str(
                     i) + ']/div/ul/li[' + str(ii) + ']/label/i[1]').click()
-    driver.quit()
 
 
 def get_windows_uuid() -> Optional[uuid.UUID]:
