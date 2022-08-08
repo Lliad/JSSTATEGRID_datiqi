@@ -13,6 +13,9 @@ import uuid
 import configparser
 import pyDes
 import base64
+import requests
+import time
+from datetime import datetime
 
 writer = pd.ExcelFile(r'.\题库.xlsx')
 df = pd.read_excel(writer, dtype={'题干': np.str_})
@@ -169,22 +172,50 @@ def __decrypt(ecryptdata, key):
     return bytes.decode(data)
 
 
+def trans_format(time_string, from_format, to_format='%Y.%m.%d %H:%M:%S'):
+    """
+    @note 时间格式转化
+    :param time_string:
+    :param from_format:
+    :param to_format:
+    :return:
+    """
+    time_struct = time.strptime(time_string,from_format)
+    times = time.strftime(to_format, time_struct)
+    return times
+
+
 while True:
-    now
+    try:
+        web_date = requests.get('http://elearning.js.sgcc.com.cn/index').headers['Date']
+    except:
+        print('网络异常，正在重新尝试！')
+        continue
+    format_web_date = trans_format(web_date, '%a, %d %b %Y %H:%M:%S GMT', '%Y-%m-%d')
     try:
         vf = str(__decrypt(readverification(), '19901012'))
     except:
         print('验证失败！')
         print('本机机器码：' + str(get_windows_uuid()))
-        yzm = input('请输入验证码：')
+        yzm = input('请输入注册码：')
         writeverification(yzm)
         continue
-    if vf == str(get_windows_uuid()):
-        print('验证通过！')
-        break
+    if vf.split('&')[0] == str(get_windows_uuid()):
+        logon_date = vf.split('&')[1]
+        days = int(vf.split('&')[2])
+        datetime_web_date = datetime.strptime(format_web_date, '%Y-%m-%d')
+        datetime_logon_date = datetime.strptime(logon_date, '%Y-%m-%d')
+        if (datetime_web_date - datetime_logon_date).days <= days:
+            print('验证通过！剩余注册日期' + str(days - (datetime_web_date - datetime_logon_date).days) + '天。')
+            break
+        else:
+            print('注册过期，请重新注册！')
+            print('本机机器码：' + str(get_windows_uuid()))
+            yzm = input('请输入注册码：')
+            writeverification(yzm)
     else:
         print('验证失败！')
         print('本机机器码：' + str(get_windows_uuid()))
-        yzm = input('请输入验证码：')
+        yzm = input('请输入注册码：')
         writeverification(yzm)
 anwser_machine(stem, anwser)
