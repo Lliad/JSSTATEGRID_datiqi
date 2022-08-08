@@ -170,6 +170,7 @@ def __decrypt(ecryptdata, key):
 
 
 while True:
+    now
     try:
         vf = str(__decrypt(readverification(), '19901012'))
     except:
