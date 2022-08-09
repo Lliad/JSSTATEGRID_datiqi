@@ -30,6 +30,7 @@ for i in range(len(stem)):
 
 def anwser_machine(stem, anwser):
     opt = ChromeOptions()
+    opt.add_experimental_option('excludeSwitches', ['enable-logging'])
     opt.binary_location = './Chrome/Application/chrome.exe'
     opt.add_experimental_option("detach", True)
     driver = webdriver.Chrome(service=Service('./chromedriver.exe'), options=opt)
