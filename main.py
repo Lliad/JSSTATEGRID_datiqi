@@ -36,7 +36,7 @@ def anwser_machine(stem, anwser):
     driver = webdriver.Chrome(service=Service('./chromedriver.exe'), options=opt)
     driver.maximize_window()
     driver.get(
-        'http://ids.js.sgcc.com.cn:8080/nidp/idff/sso?RequestID=idx6hr.S2z5-8QYS.YqeLLYwJpX9s&MajorVersion=1&MinorVersion=2&IssueInstant=2022-08-01T06%3A54%3A40Z&ProviderID=http%3A%2F%2Fuserauth.js.sgcc.com.cn%3A80%2Fnesp%2Fidff%2Fmetadata&RelayState=MA%3D%3D&consent=urn%3Aliberty%3Aconsent%3Aunavailable&ForceAuthn=false&IsPassive=false&NameIDPolicy=onetime&ProtocolProfile=http%3A%2F%2Fprojectliberty.org%2Fprofiles%2Fbrws-art&target=http%3A%2F%2Fuserauth.js.sgcc.com.cn%2FUALogin%2Flogin%3FTRAGEURL%3Dhttp%253A%252F%252Felearning.js.sgcc.com.cn%252Fsso%252Flogin%252F%253FreturnUrl%253Dhttp%25253A%25252F%25252Felearning.js.sgcc.com.cn%25252FthirdIndex&AuthnContextStatementRef=name%2Fpassword%2Furi')
+        'http://elearning.js.sgcc.com.cn/index')
     break_while = False
     while True:
         n = driver.window_handles
@@ -53,6 +53,7 @@ def anwser_machine(stem, anwser):
     driver.find_element(By.XPATH, '/html/body/div[4]/div/button[2]').click()
     WebDriverWait(driver, 60).until(EC.visibility_of_element_located(
         (By.XPATH, '/html/body/div[3]/div[3]/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/span[2]')))
+    time.sleep(60)
     # 单选题
     for i in range(1, 301):
         try:
