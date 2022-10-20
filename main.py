@@ -38,26 +38,29 @@ def anwser_machine(stem, anwser):
     driver.get(
         'http://elearning.js.sgcc.com.cn/index')
     break_while = False
+    n = []
     while True:
-        n = driver.window_handles
-        for i in n:
-            driver.switch_to.window(i)
-            try:
-                if driver.find_element(By.XPATH, '/html/head/title').get_attribute('textContent') == '考试详情':
-                    break_while = True
-                    break
-            except:
-                continue
-        if break_while:
-            break
-    driver.find_element(By.XPATH, '/html/body/div[4]/div/button[2]').click()
+        if n != driver.window_handles:
+            n = driver.window_handles
+            for i in n:
+                driver.switch_to.window(i)
+                try:
+                    if driver.find_element(By.XPATH, '/html/head/title').get_attribute('textContent') == '考试详情':
+                        break_while = True
+                        break
+                except:
+                    continue
+            if break_while:
+                break
+
+    driver.find_element(By.XPATH, '/html/body/div[@class="detail-panel opt-panel"]/div[@class="btns fr"]/button[2]').click()
     WebDriverWait(driver, 60).until(EC.visibility_of_element_located(
-        (By.XPATH, '/html/body/div[3]/div[3]/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/span[2]')))
-    time.sleep(60)
+        (By.XPATH, '/html/body/div[@class="total-wrap examIng full-exam-temp"]/div[@class="exam-main"]/div[@class="main-left fl"]/div/div[1]/div[2]/div[1]/div/div[1]/span[2]')))
+
     # 单选题
     for i in range(1, 301):
         try:
-            subject = driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[2]/div/div[1]/div[2]/div[' + str(
+            subject = driver.find_element(By.XPATH, '/html/body/div[@class="total-wrap examIng full-exam-temp"]/div[@class="exam-main"]/div[@class="main-left fl"]/div/div[1]/div[2]/div[' + str(
                 i) + ']/div/div[1]/span[2]').text
         except:
             break
@@ -69,18 +72,18 @@ def anwser_machine(stem, anwser):
             continue
         for ii in range(1, 9):
             try:
-                option = driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[2]/div/div[1]/div[2]/div[' + str(
+                option = driver.find_element(By.XPATH, '/html/body/div[@class="total-wrap examIng full-exam-temp"]/div[@class="exam-main"]/div[@class="main-left fl"]/div/div[1]/div[2]/div[' + str(
                     i) + ']/div/ul/li[' + str(ii) + ']/input').get_attribute('value')
             except:
                 break
             if option in anwser_one:
                 print(option)
-                driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[2]/div/div[1]/div[2]/div[' + str(
+                driver.find_element(By.XPATH, '/html/body/div[@class="total-wrap examIng full-exam-temp"]/div[@class="exam-main"]/div[@class="main-left fl"]/div/div[1]/div[2]/div[' + str(
                     i) + ']/div/ul/li[' + str(ii) + ']/label/i[1]').click()
     # 多选题
     for i in range(1, 301):
         try:
-            subject = driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[2]/div/div[2]/div[2]/div[' + str(
+            subject = driver.find_element(By.XPATH, '/html/body/div[@class="total-wrap examIng full-exam-temp"]/div[@class="exam-main"]/div[@class="main-left fl"]/div/div[2]/div[2]/div[' + str(
                 i) + ']/div/div[1]/span[2]').text
         except:
             break
@@ -92,18 +95,18 @@ def anwser_machine(stem, anwser):
             continue
         for ii in range(1, 9):
             try:
-                option = driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[2]/div/div[2]/div[2]/div[' + str(
+                option = driver.find_element(By.XPATH, '/html/body/div[@class="total-wrap examIng full-exam-temp"]/div[@class="exam-main"]/div[@class="main-left fl"]/div/div[2]/div[2]/div[' + str(
                     i) + ']/div/ul/li[' + str(ii) + ']/input').get_attribute('value')
             except:
                 break
             if option in anwser_one:
                 print(option)
-                driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[2]/div/div[2]/div[2]/div[' + str(
+                driver.find_element(By.XPATH, '/html/body/div[@class="total-wrap examIng full-exam-temp"]/div[@class="exam-main"]/div[@class="main-left fl"]/div/div[2]/div[2]/div[' + str(
                     i) + ']/div/ul/li[' + str(ii) + ']/label/i[1]').click()
     # 判断题
     for i in range(1, 301):
         try:
-            subject = driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[2]/div/div[3]/div[2]/div[' + str(
+            subject = driver.find_element(By.XPATH, '/html/body/div[@class="total-wrap examIng full-exam-temp"]/div[@class="exam-main"]/div[@class="main-left fl"]/div/div[3]/div[2]/div[' + str(
                 i) + ']/div/div[1]/span[2]').text
         except:
             break
@@ -115,13 +118,13 @@ def anwser_machine(stem, anwser):
             continue
         for ii in range(1, 9):
             try:
-                option = driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[2]/div/div[3]/div[2]/div[' + str(
+                option = driver.find_element(By.XPATH, '/html/body/div[@class="total-wrap examIng full-exam-temp"]/div[@class="exam-main"]/div[@class="main-left fl"]/div/div[3]/div[2]/div[' + str(
                     i) + ']/div/ul/li[' + str(ii) + ']/input').get_attribute('value')
             except:
                 break
             if option in anwser_one:
                 print(option)
-                driver.find_element(By.XPATH, '/html/body/div[3]/div[3]/div[2]/div/div[3]/div[2]/div[' + str(
+                driver.find_element(By.XPATH, '/html/body/div[@class="total-wrap examIng full-exam-temp"]/div[@class="exam-main"]/div[@class="main-left fl"]/div/div[3]/div[2]/div[' + str(
                     i) + ']/div/ul/li[' + str(ii) + ']/label/i[1]').click()
 
 
